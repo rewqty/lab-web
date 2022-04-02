@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@WebServlet("/view")
+@WebServlet("/")
 public class SomethingServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -37,9 +37,16 @@ public class SomethingServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         String path = req.getParameter("path");
+        if (path == null) {
+            path = Paths.get("").toAbsolutePath().toString();
+        }
         File file = new File(path);
         if(file.isDirectory()) {
-            req.setAttribute("parentPath", file.getParent());
+            if(file.getParent() == null) {
+                req.setAttribute("parentPath", "http://localhost:8080/view?path=" + "C:\\");
+            } else {
+                req.setAttribute("parentPath", "http://localhost:8080/view?path=" + file.getParent());
+            }
             req.setAttribute("listFiles", getListFiles(file));
             req.setAttribute("listDirectories", getListDirectories(file));
         } else if(file.isFile()) {
