@@ -115,7 +115,11 @@ public class FileServlet extends HttpServlet {
         String path = Paths.get("").toAbsolutePath().toString() + "\\home\\" + login;
         File file = new File(path);
         if (!file.exists()) {
-            if(file.mkdir()) {
+            if(file.mkdirs()) {
+                File fileTest = new File(path + "\\test.txt");
+                File directoryTest = new File(path + "\\test");
+                fileTest.createNewFile();
+                directoryTest.mkdir();
                 return path;
             }
         }
