@@ -5,6 +5,14 @@
     <title>Explorer</title>
 </head>
 <body>
+    <div>
+        <form action="auth?form=logout" method="post">
+            <input class="button" type="submit" value="Выйти"/>
+        </form>
+    </div>
+    <div>
+        ${PageGenerationTime}
+    </div>
     <a href="<c:url value="${parentPath}"/>">Вверх</a>
     <table>
         <tr>
